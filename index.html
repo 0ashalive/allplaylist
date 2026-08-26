@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>File Manager</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top left,#182848 0,#0b1020 40%,#05070d 100%);
+    color:#fff;
+}
+
+/* LOGIN */
+#loginPage{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login-box{
+    width:100%;
+    max-width:390px;
+    padding:35px 28px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:25px;
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
+    text-align:center;
+}
+
+.logo{
+    width:75px;
+    height:75px;
+    margin:0 auto 18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:22px;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    font-size:32px;
+    box-shadow:0 10px 35px rgba(118,75,162,.4);
+}
+
+.login-box h1{
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.login-box p{
+    color:#9ca3af;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.input{
+    width:100%;
+    padding:15px;
+    border-radius:13px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(0,0,0,.25);
+    color:#fff;
+    outline:none;
+    text-align:center;
+    font-size:18px;
+    letter-spacing:4px;
+}
+
+.input:focus{
+    border-color:#667eea;
+    box-shadow:0 0 0 3px rgba(102,126,234,.12);
+}
+
+.login-btn{
+    width:100%;
+    border:0;
+    margin-top:15px;
+    padding:15px;
+    border-radius:13px;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.login-btn:active{
+    transform:scale(.98);
+}
+
+.error{
+    display:none;
+    color:#ff6b81;
+    margin-top:14px;
+    font-size:13px;
+}
+
+/* APP */
+#app{
+    display:none;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    padding:16px 20px;
+    background:rgba(5,7,13,.78);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brand-icon{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+.brand h2{
+    font-size:18px;
+}
+
+.brand small{
+    display:block;
+    color:#8b93a7;
+    font-size:11px;
+    margin-top:2px;
+}
+
+.logout{
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    padding:9px 13px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:25px 20px 50px;
+}
+
+.toolbar{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+    padding:14px 16px;
+    border-radius:13px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    outline:none;
+}
+
+.search:focus{
+    border-color:#667eea;
+}
+
+.copy-all{
+    border:0;
+    padding:14px 18px;
+    border-radius:13px;
+    background:linear-gradient(135deg,#11998e,#38ef7d);
+    color:#06120e;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.path-box{
+    padding:14px 16px;
+    margin-bottom:20px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    background:rgba(255,255,255,.04);
+    color:#9ca3af;
+    word-break:break-all;
+    font-size:13px;
+}
+
+.path-box b{
+    color:#fff;
+}
+
+.files{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:15px;
+}
+
+.file-card{
+    padding:18px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    background:rgba(255,255,255,.045);
+    transition:.2s;
+}
+
+.file-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(102,126,234,.5);
+    background:rgba(255,255,255,.07);
+}
+
+.file-top{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.file-icon{
+    width:46px;
+    height:46px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    background:rgba(102,126,234,.15);
+    font-size:22px;
+}
+
+.file-name{
+    font-size:15px;
+    font-weight:700;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.file-type{
+    color:#8b93a7;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.file-link{
+    margin-top:15px;
+    padding:10px;
+    border-radius:10px;
+    background:rgba(0,0,0,.22);
+    color:#aeb7cc;
+    font-size:11px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+
+.action{
+    flex:1;
+    border:0;
+    padding:10px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.open{
+    background:rgba(102,126,234,.18);
+    color:#aebcff;
+}
+
+.copy{
+    background:rgba(56,239,125,.13);
+    color:#5df69b;
+}
+
+.empty{
+    grid-column:1/-1;
+    text-align:center;
+    padding:60px 20px;
+    color:#8b93a7;
+}
+
+footer{
+    text-align:center;
+    color:#60697d;
+    font-size:12px;
+    padding:20px;
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%) translateY(20px);
+    background:#171b29;
+    border:1px solid rgba(255,255,255,.1);
+    padding:12px 18px;
+    border-radius:12px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:100;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+@media(max-width:600px){
+    .container{
+        padding:18px 13px 40px;
+    }
+
+    .files{
+        grid-template-columns:1fr;
+    }
+
+    .header-inner{
+        padding:0 2px;
+    }
+
+    .brand h2{
+        font-size:16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<section id="loginPage">
+
+    <div class="login-box">
+
+        <div class="logo">🔐</div>
+
+        <h1>File Manager</h1>
+
+        <p>Enter password to access files</p>
+
+        <input
+            id="password"
+            class="input"
+            type="password"
+            placeholder="••••"
+            maxlength="4"
+            inputmode="numeric"
+            autocomplete="off"
+        >
+
+        <button class="login-btn" onclick="login()">
+            🔓 Login
+        </button>
+
+        <div id="error" class="error">
+            ❌ Incorrect password
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- APP -->
+<div id="app">
+
+<header>
+
+    <div class="header-inner">
+
+        <div class="brand">
+
+            <div class="brand-icon">📁</div>
+
+            <div>
+                <h2>File Manager</h2>
+                <small>Current folder files</small>
+            </div>
+
+        </div>
+
+        <button class="logout" onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <div class="toolbar">
+
+        <input
+            id="search"
+            class="search"
+            type="text"
+            placeholder="🔎 Search files..."
+            oninput="filterFiles()"
+        >
+
+        <button class="copy-all" onclick="copyAll()">
+            📋 Copy All Links
+        </button>
+
+    </div>
+
+
+    <div class="path-box">
+        📍 <b>Folder:</b>
+        <span id="folderPath"></span>
+    </div>
+
+
+    <div id="files" class="files">
+
+        <div class="empty">
+            ⏳ Loading files...
+        </div>
+
+    </div>
+
+</main>
+
+<footer>
+    File Manager • Secure Access
+</footer>
+
+</div>
+
+
+<div id="toast" class="toast">
+    Copied!
+</div>
+
+
+<script>
+
+/* PASSWORD */
+const PASSWORD = "2580";
+
+
+/* FILE LIST
+   Add your files here.
+   If you want AUTOMATIC directory scanning,
+   use the PHP version mentioned below.
+*/
+const files = [
+    // Example:
+    // "data.json",
+    // "playlist.m3u",
+    // "save.txt",
+    // "channels.json"
+];
+
+
+/* LOGIN */
+
+function login(){
+
+    const password =
+        document.getElementById("password").value;
+
+    if(password === PASSWORD){
+
+        sessionStorage.setItem(
+            "file_manager_login",
+            "1"
+        );
+
+        showApp();
+
+    }else{
+
+        document.getElementById("error").style.display =
+            "block";
+
+        document.getElementById("password").value = "";
+
+    }
+
+}
+
+
+document
+.getElementById("password")
+.addEventListener("keydown",function(e){
+
+    if(e.key === "Enter"){
+        login();
+    }
+
+});
+
+
+/* SESSION */
+
+function showApp(){
+
+    document.getElementById("loginPage").style.display =
+        "none";
+
+    document.getElementById("app").style.display =
+        "block";
+
+    document.getElementById("folderPath").textContent =
+        window.location.href.substring(
+            0,
+            window.location.href.lastIndexOf("/") + 1
+        );
+
+    renderFiles();
+
+}
+
+
+function logout(){
+
+    sessionStorage.removeItem(
+        "file_manager_login"
+    );
+
+    location.reload();
+
+}
+
+
+if(
+    sessionStorage.getItem(
+        "file_manager_login"
+    ) === "1"
+){
+
+    showApp();
+
+}
+
+
+/* FILE ICON */
+
+function getIcon(name){
+
+    const ext =
+        name.split(".").pop().toLowerCase();
+
+    if(ext === "json") return "📋";
+    if(ext === "m3u") return "📺";
+    if(ext === "m3u8") return "🎬";
+    if(ext === "txt") return "📄";
+    if(ext === "php") return "🐘";
+    if(ext === "html") return "🌐";
+    if(ext === "css") return "🎨";
+    if(ext === "js") return "⚙️";
+    if(ext === "jpg" ||
+       ext === "jpeg" ||
+       ext === "png" ||
+       ext === "webp") return "🖼️";
+
+    return "📄";
+
+}
+
+
+/* RENDER */
+
+function renderFiles(){
+
+    const container =
+        document.getElementById("files");
+
+    if(files.length === 0){
+
+        container.innerHTML = `
+            <div class="empty">
+                <div style="font-size:45px">📂</div>
+                <br>
+                No files configured.
+                <br><br>
+                Add filenames to the
+                <b>files</b> array.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        files.map((file,index)=>{
+
+            const url =
+                new URL(
+                    file,
+                    window.location.href
+                ).href;
+
+            const ext =
+                file.includes(".")
+                ? file.split(".").pop().toUpperCase()
+                : "FILE";
+
+            return `
+
+            <div
+                class="file-card"
+                data-name="${file.toLowerCase()}"
+            >
+
+                <div class="file-top">
+
+                    <div class="file-icon">
+                        ${getIcon(file)}
+                    </div>
+
+                    <div>
+
+                        <div class="file-name">
+                            ${escapeHtml(file)}
+                        </div>
+
+                        <div class="file-type">
+                            ${ext} FILE
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="file-link">
+                    ${escapeHtml(url)}
+                </div>
+
+
+                <div class="actions">
+
+                    <button
+                        class="action open"
+                        onclick="openFile(${index})"
+                    >
+                        ↗ Open
+                    </button>
+
+                    <button
+                        class="action copy"
+                        onclick="copyLink(${index})"
+                    >
+                        📋 Copy
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* OPEN */
+
+function openFile(index){
+
+    const url =
+        new URL(
+            files[index],
+            window.location.href
+        ).href;
+
+    window.open(url,"_blank");
+
+}
+
+
+/* COPY */
+
+async function copyLink(index){
+
+    const url =
+        new URL(
+            files[index],
+            window.location.href
+        ).href;
+
+    await navigator.clipboard.writeText(url);
+
+    toast("✅ Link copied");
+
+}
+
+
+/* COPY ALL */
+
+async function copyAll(){
+
+    if(files.length === 0){
+
+        toast("No files");
+
+        return;
+    }
+
+
+    const links =
+        files.map(file =>
+            new URL(
+                file,
+                window.location.href
+            ).href
+        ).join("\n");
+
+
+    await navigator.clipboard.writeText(links);
+
+    toast(
+        "✅ All links copied"
+    );
+
+}
+
+
+/* SEARCH */
+
+function filterFiles(){
+
+    const query =
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    document
+    .querySelectorAll(".file-card")
+    .forEach(card=>{
+
+        card.style.display =
+            card.dataset.name
+            .includes(query)
+            ? ""
+            : "none";
+
+    });
+
+}
+
+
+/* TOAST */
+
+function toast(message){
+
+    const t =
+        document.getElementById("toast");
+
+    t.textContent = message;
+
+    t.classList.add("show");
+
+    setTimeout(()=>{
+        t.classList.remove("show");
+    },1800);
+
+}
+
+
+/* HTML ESCAPE */
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+</script>
+
+</body>
+</html>
