@@ -3,113 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>File Manager</title>
+<title>GitHub File Manager</title>
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
     font-family:Inter,Arial,sans-serif;
 }
 
 body{
     min-height:100vh;
-    background:
-        radial-gradient(circle at top left,#182848 0,#0b1020 40%,#05070d 100%);
     color:#fff;
+    background:
+        radial-gradient(circle at 10% 0%,#243b72 0%,transparent 35%),
+        radial-gradient(circle at 90% 100%,#32194f 0%,transparent 35%),
+        #070a12;
 }
 
 /* LOGIN */
+
 #loginPage{
     min-height:100vh;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     padding:20px;
 }
 
-.login-box{
+.loginBox{
     width:100%;
     max-width:390px;
     padding:35px 28px;
+    text-align:center;
     border:1px solid rgba(255,255,255,.12);
     background:rgba(255,255,255,.06);
     backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
     border-radius:25px;
-    box-shadow:0 25px 80px rgba(0,0,0,.45);
-    text-align:center;
+    box-shadow:0 30px 90px rgba(0,0,0,.5);
 }
 
 .logo{
     width:75px;
     height:75px;
-    margin:0 auto 18px;
+    margin:auto;
+    margin-bottom:18px;
     display:flex;
     align-items:center;
     justify-content:center;
     border-radius:22px;
+    font-size:34px;
     background:linear-gradient(135deg,#667eea,#764ba2);
-    font-size:32px;
-    box-shadow:0 10px 35px rgba(118,75,162,.4);
 }
 
-.login-box h1{
+.loginBox h1{
     font-size:25px;
     margin-bottom:8px;
 }
 
-.login-box p{
-    color:#9ca3af;
-    font-size:14px;
+.loginBox p{
+    color:#8e98ad;
+    font-size:13px;
     margin-bottom:25px;
 }
 
-.input{
+.password{
     width:100%;
     padding:15px;
     border-radius:13px;
-    border:1px solid rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.12);
+    outline:none;
     background:rgba(0,0,0,.25);
     color:#fff;
-    outline:none;
     text-align:center;
-    font-size:18px;
-    letter-spacing:4px;
+    font-size:20px;
+    letter-spacing:6px;
 }
 
-.input:focus{
-    border-color:#667eea;
-    box-shadow:0 0 0 3px rgba(102,126,234,.12);
-}
-
-.login-btn{
+.loginBtn{
     width:100%;
-    border:0;
     margin-top:15px;
     padding:15px;
+    border:0;
     border-radius:13px;
     background:linear-gradient(135deg,#667eea,#764ba2);
-    color:#fff;
+    color:white;
+    font-weight:bold;
     font-size:16px;
-    font-weight:700;
     cursor:pointer;
 }
 
-.login-btn:active{
+.loginBtn:active{
     transform:scale(.98);
 }
 
 .error{
     display:none;
-    color:#ff6b81;
     margin-top:14px;
+    color:#ff6b81;
     font-size:13px;
 }
 
 /* APP */
+
 #app{
     display:none;
 }
@@ -117,19 +114,19 @@ body{
 header{
     position:sticky;
     top:0;
-    z-index:20;
-    padding:16px 20px;
-    background:rgba(5,7,13,.78);
-    backdrop-filter:blur(18px);
+    z-index:50;
     border-bottom:1px solid rgba(255,255,255,.08);
+    background:rgba(5,8,15,.82);
+    backdrop-filter:blur(18px);
 }
 
-.header-inner{
+.headerInner{
     max-width:1100px;
     margin:auto;
+    padding:15px 20px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:15px;
 }
 
@@ -139,13 +136,14 @@ header{
     gap:12px;
 }
 
-.brand-icon{
-    width:42px;
-    height:42px;
-    border-radius:12px;
+.brandIcon{
+    width:44px;
+    height:44px;
+    border-radius:13px;
     display:flex;
     align-items:center;
     justify-content:center;
+    font-size:22px;
     background:linear-gradient(135deg,#667eea,#764ba2);
 }
 
@@ -155,148 +153,158 @@ header{
 
 .brand small{
     display:block;
-    color:#8b93a7;
+    color:#8992a6;
+    margin-top:3px;
     font-size:11px;
-    margin-top:2px;
 }
 
 .logout{
-    border:1px solid rgba(255,255,255,.12);
+    padding:10px 14px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.1);
     background:rgba(255,255,255,.06);
     color:#fff;
-    padding:9px 13px;
-    border-radius:10px;
     cursor:pointer;
 }
 
 .container{
-    width:100%;
     max-width:1100px;
     margin:auto;
-    padding:25px 20px 50px;
+    padding:24px 20px 50px;
 }
 
 .toolbar{
     display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-    margin-bottom:22px;
+    gap:10px;
+    margin-bottom:15px;
 }
 
 .search{
     flex:1;
-    min-width:220px;
+    min-width:0;
     padding:14px 16px;
     border-radius:13px;
     border:1px solid rgba(255,255,255,.1);
-    background:rgba(255,255,255,.05);
-    color:#fff;
     outline:none;
+    color:#fff;
+    background:rgba(255,255,255,.05);
 }
 
 .search:focus{
     border-color:#667eea;
 }
 
-.copy-all{
+.copyAll{
+    padding:0 17px;
     border:0;
-    padding:14px 18px;
     border-radius:13px;
     background:linear-gradient(135deg,#11998e,#38ef7d);
-    color:#06120e;
+    color:#04110c;
     font-weight:700;
     cursor:pointer;
 }
 
-.path-box{
-    padding:14px 16px;
-    margin-bottom:20px;
+.path{
+    padding:13px 15px;
+    margin-bottom:18px;
     border:1px solid rgba(255,255,255,.08);
-    border-radius:14px;
+    border-radius:13px;
     background:rgba(255,255,255,.04);
-    color:#9ca3af;
-    word-break:break-all;
+    color:#aab2c3;
     font-size:13px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
 }
 
-.path-box b{
+.path span{
     color:#fff;
+}
+
+.back{
+    display:none;
+    margin-bottom:15px;
+    padding:10px 14px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    cursor:pointer;
 }
 
 .files{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
     gap:15px;
 }
 
-.file-card{
-    padding:18px;
+.card{
     border:1px solid rgba(255,255,255,.08);
     border-radius:18px;
+    padding:17px;
     background:rgba(255,255,255,.045);
     transition:.2s;
 }
 
-.file-card:hover{
+.card:hover{
     transform:translateY(-3px);
-    border-color:rgba(102,126,234,.5);
-    background:rgba(255,255,255,.07);
+    border-color:rgba(102,126,234,.45);
 }
 
-.file-top{
+.top{
     display:flex;
     align-items:center;
     gap:13px;
 }
 
-.file-icon{
-    width:46px;
-    height:46px;
+.icon{
+    width:48px;
+    height:48px;
     flex-shrink:0;
+    border-radius:14px;
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:13px;
-    background:rgba(102,126,234,.15);
     font-size:22px;
+    background:rgba(102,126,234,.14);
 }
 
-.file-name{
-    font-size:15px;
+.name{
+    font-size:14px;
     font-weight:700;
     overflow:hidden;
-    text-overflow:ellipsis;
     white-space:nowrap;
+    text-overflow:ellipsis;
 }
 
-.file-type{
-    color:#8b93a7;
-    font-size:12px;
+.type{
     margin-top:4px;
+    color:#8992a6;
+    font-size:11px;
 }
 
-.file-link{
-    margin-top:15px;
+.link{
+    margin-top:14px;
     padding:10px;
     border-radius:10px;
-    background:rgba(0,0,0,.22);
-    color:#aeb7cc;
-    font-size:11px;
+    background:rgba(0,0,0,.2);
+    color:#8f99ae;
+    font-size:10px;
     overflow:hidden;
-    text-overflow:ellipsis;
     white-space:nowrap;
+    text-overflow:ellipsis;
 }
 
-.actions{
+.buttons{
     display:flex;
     gap:8px;
-    margin-top:12px;
+    margin-top:11px;
 }
 
-.action{
+.btn{
     flex:1;
-    border:0;
     padding:10px;
+    border:0;
     border-radius:10px;
     cursor:pointer;
     font-weight:600;
@@ -304,25 +312,36 @@ header{
 
 .open{
     background:rgba(102,126,234,.18);
-    color:#aebcff;
+    color:#aab8ff;
 }
 
 .copy{
-    background:rgba(56,239,125,.13);
-    color:#5df69b;
+    background:rgba(56,239,125,.12);
+    color:#54ed94;
 }
 
-.empty{
-    grid-column:1/-1;
+.folderBtn{
+    width:100%;
+    margin-top:12px;
+    padding:10px;
+    border:0;
+    border-radius:10px;
+    background:rgba(255,193,7,.12);
+    color:#ffd45c;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.status{
     text-align:center;
-    padding:60px 20px;
-    color:#8b93a7;
+    padding:55px 15px;
+    color:#8b95aa;
 }
 
 footer{
     text-align:center;
-    color:#60697d;
-    font-size:12px;
+    color:#596276;
+    font-size:11px;
     padding:20px;
 }
 
@@ -330,37 +349,42 @@ footer{
     position:fixed;
     left:50%;
     bottom:25px;
-    transform:translateX(-50%) translateY(20px);
-    background:#171b29;
-    border:1px solid rgba(255,255,255,.1);
-    padding:12px 18px;
-    border-radius:12px;
+    transform:translate(-50%,20px);
     opacity:0;
     pointer-events:none;
+    padding:12px 18px;
+    border-radius:12px;
+    background:#181d2b;
+    border:1px solid rgba(255,255,255,.1);
     transition:.25s;
     z-index:100;
 }
 
 .toast.show{
     opacity:1;
-    transform:translateX(-50%) translateY(0);
+    transform:translate(-50%,0);
 }
 
 @media(max-width:600px){
+
     .container{
         padding:18px 13px 40px;
+    }
+
+    .toolbar{
+        flex-direction:column;
+    }
+
+    .copyAll{
+        padding:13px;
     }
 
     .files{
         grid-template-columns:1fr;
     }
 
-    .header-inner{
-        padding:0 2px;
-    }
-
-    .brand h2{
-        font-size:16px;
+    .headerInner{
+        padding:13px;
     }
 }
 </style>
@@ -369,53 +393,55 @@ footer{
 <body>
 
 <!-- LOGIN -->
-<section id="loginPage">
 
-    <div class="login-box">
+<div id="loginPage">
+
+    <div class="loginBox">
 
         <div class="logo">🔐</div>
 
         <h1>File Manager</h1>
 
-        <p>Enter password to access files</p>
+        <p>Enter password to continue</p>
 
         <input
             id="password"
-            class="input"
+            class="password"
             type="password"
-            placeholder="••••"
-            maxlength="4"
             inputmode="numeric"
+            maxlength="4"
+            placeholder="••••"
             autocomplete="off"
         >
 
-        <button class="login-btn" onclick="login()">
-            🔓 Login
+        <button class="loginBtn" onclick="login()">
+            🔓 LOGIN
         </button>
 
         <div id="error" class="error">
-            ❌ Incorrect password
+            ❌ Wrong password
         </div>
 
     </div>
 
-</section>
+</div>
 
 
 <!-- APP -->
+
 <div id="app">
 
 <header>
 
-    <div class="header-inner">
+    <div class="headerInner">
 
         <div class="brand">
 
-            <div class="brand-icon">📁</div>
+            <div class="brandIcon">📁</div>
 
             <div>
-                <h2>File Manager</h2>
-                <small>Current folder files</small>
+                <h2>GitHub Files</h2>
+                <small>File Manager</small>
             </div>
 
         </div>
@@ -429,85 +455,128 @@ footer{
 </header>
 
 
-<main class="container">
+<div class="container">
 
     <div class="toolbar">
 
         <input
             id="search"
             class="search"
-            type="text"
             placeholder="🔎 Search files..."
-            oninput="filterFiles()"
+            oninput="searchFiles()"
         >
 
-        <button class="copy-all" onclick="copyAll()">
-            📋 Copy All Links
+        <button
+            class="copyAll"
+            onclick="copyAllLinks()"
+        >
+            📋 Copy All
         </button>
 
     </div>
 
 
-    <div class="path-box">
-        📍 <b>Folder:</b>
-        <span id="folderPath"></span>
+    <div class="path">
+        📍 Path:
+        <span id="currentPath">/</span>
     </div>
+
+
+    <button
+        id="backBtn"
+        class="back"
+        onclick="goBack()"
+    >
+        ← Back
+    </button>
 
 
     <div id="files" class="files">
 
-        <div class="empty">
-            ⏳ Loading files...
+        <div class="status">
+            ⏳ Loading GitHub files...
         </div>
 
     </div>
 
-</main>
+</div>
+
 
 <footer>
-    File Manager • Secure Access
+    GitHub File Manager
 </footer>
 
 </div>
 
 
 <div id="toast" class="toast">
-    Copied!
+    Copied
 </div>
 
 
 <script>
 
-/* PASSWORD */
+/* =====================================================
+   CONFIGURATION
+   ===================================================== */
+
+/*
+   CHANGE THESE TWO VALUES
+*/
+
+const GITHUB_USER = "0ashalive";
+
+const GITHUB_REPO = "allplaylist";
+
+
+/*
+   Optional:
+   If your files are inside a GitHub folder,
+   put folder path here.
+
+   Example:
+   const ROOT_FOLDER = "upload";
+
+   For repository root:
+*/
+const ROOT_FOLDER = "";
+
+
+/*
+   Branch
+*/
+const GITHUB_BRANCH = "main";
+
+
+/*
+   LOGIN PASSWORD
+*/
 const PASSWORD = "2580";
 
 
-/* FILE LIST
-   Add your files here.
-   If you want AUTOMATIC directory scanning,
-   use the PHP version mentioned below.
-*/
-const files = [
-    // Example:
-    // "data.json",
-    // "playlist.m3u",
-    // "save.txt",
-    // "channels.json"
-];
+/* =====================================================
+   VARIABLES
+   ===================================================== */
+
+let currentPath = ROOT_FOLDER;
+
+let allItems = [];
 
 
-/* LOGIN */
+/* =====================================================
+   LOGIN
+   ===================================================== */
 
 function login(){
 
-    const password =
+    const value =
         document.getElementById("password").value;
 
-    if(password === PASSWORD){
+    if(value === PASSWORD){
 
         sessionStorage.setItem(
-            "file_manager_login",
-            "1"
+            "github_file_login",
+            "yes"
         );
 
         showApp();
@@ -535,7 +604,9 @@ document
 });
 
 
-/* SESSION */
+/* =====================================================
+   SESSION
+   ===================================================== */
 
 function showApp(){
 
@@ -545,13 +616,7 @@ function showApp(){
     document.getElementById("app").style.display =
         "block";
 
-    document.getElementById("folderPath").textContent =
-        window.location.href.substring(
-            0,
-            window.location.href.lastIndexOf("/") + 1
-        );
-
-    renderFiles();
+    loadFiles();
 
 }
 
@@ -559,7 +624,7 @@ function showApp(){
 function logout(){
 
     sessionStorage.removeItem(
-        "file_manager_login"
+        "github_file_login"
     );
 
     location.reload();
@@ -569,8 +634,8 @@ function logout(){
 
 if(
     sessionStorage.getItem(
-        "file_manager_login"
-    ) === "1"
+        "github_file_login"
+    ) === "yes"
 ){
 
     showApp();
@@ -578,196 +643,416 @@ if(
 }
 
 
-/* FILE ICON */
+/* =====================================================
+   GITHUB API
+   ===================================================== */
 
-function getIcon(name){
-
-    const ext =
-        name.split(".").pop().toLowerCase();
-
-    if(ext === "json") return "📋";
-    if(ext === "m3u") return "📺";
-    if(ext === "m3u8") return "🎬";
-    if(ext === "txt") return "📄";
-    if(ext === "php") return "🐘";
-    if(ext === "html") return "🌐";
-    if(ext === "css") return "🎨";
-    if(ext === "js") return "⚙️";
-    if(ext === "jpg" ||
-       ext === "jpeg" ||
-       ext === "png" ||
-       ext === "webp") return "🖼️";
-
-    return "📄";
-
-}
-
-
-/* RENDER */
-
-function renderFiles(){
+async function loadFiles(){
 
     const container =
         document.getElementById("files");
 
-    if(files.length === 0){
+    container.innerHTML = `
+        <div class="status">
+            ⏳ Loading...
+        </div>
+    `;
+
+
+    document.getElementById("currentPath").textContent =
+        "/" + (currentPath || "");
+
+
+    let apiUrl =
+        "https://api.github.com/repos/" +
+        encodeURIComponent(GITHUB_USER) +
+        "/" +
+        encodeURIComponent(GITHUB_REPO) +
+        "/contents/";
+
+
+    if(currentPath){
+
+        apiUrl +=
+            currentPath
+            .split("/")
+            .map(encodeURIComponent)
+            .join("/");
+
+    }
+
+
+    apiUrl +=
+        "?ref=" +
+        encodeURIComponent(GITHUB_BRANCH);
+
+
+    try{
+
+        const response =
+            await fetch(apiUrl,{
+
+                headers:{
+                    "Accept":
+                    "application/vnd.github+json"
+                }
+
+            });
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "GitHub API HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(!Array.isArray(data)){
+
+            throw new Error(
+                data.message ||
+                "Invalid GitHub response"
+            );
+
+        }
+
+
+        allItems = data;
+
+        renderFiles(data);
+
+
+    }catch(error){
+
+        console.error(error);
 
         container.innerHTML = `
-            <div class="empty">
-                <div style="font-size:45px">📂</div>
-                <br>
-                No files configured.
+            <div class="status">
+
+                ❌ Failed to load files
+
                 <br><br>
-                Add filenames to the
-                <b>files</b> array.
+
+                <small>
+                    ${escapeHtml(error.message)}
+                </small>
+
+                <br><br>
+
+                Check:
+                <br>
+                • GitHub username
+                <br>
+                • Repository name
+                <br>
+                • Branch name
+                <br>
+                • Repository is public
+                <br>
+                • GitHub API rate limit
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER FILES
+   ===================================================== */
+
+function renderFiles(items){
+
+    const container =
+        document.getElementById("files");
+
+
+    if(items.length === 0){
+
+        container.innerHTML = `
+            <div class="status">
+                📂 This folder is empty
             </div>
         `;
 
         return;
+
     }
 
 
+    /*
+       Folders first
+    */
+
+    items.sort((a,b)=>{
+
+        if(a.type === b.type) return a.name.localeCompare(b.name);
+
+        return a.type === "dir" ? -1 : 1;
+
+    });
+
+
     container.innerHTML =
-        files.map((file,index)=>{
+        items.map((item,index)=>{
 
-            const url =
-                new URL(
-                    file,
-                    window.location.href
-                ).href;
+            if(item.type === "dir"){
 
-            const ext =
-                file.includes(".")
-                ? file.split(".").pop().toUpperCase()
-                : "FILE";
+                return folderCard(item,index);
 
-            return `
+            }
 
-            <div
-                class="file-card"
-                data-name="${file.toLowerCase()}"
-            >
-
-                <div class="file-top">
-
-                    <div class="file-icon">
-                        ${getIcon(file)}
-                    </div>
-
-                    <div>
-
-                        <div class="file-name">
-                            ${escapeHtml(file)}
-                        </div>
-
-                        <div class="file-type">
-                            ${ext} FILE
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="file-link">
-                    ${escapeHtml(url)}
-                </div>
-
-
-                <div class="actions">
-
-                    <button
-                        class="action open"
-                        onclick="openFile(${index})"
-                    >
-                        ↗ Open
-                    </button>
-
-                    <button
-                        class="action copy"
-                        onclick="copyLink(${index})"
-                    >
-                        📋 Copy
-                    </button>
-
-                </div>
-
-            </div>
-
-            `;
+            return fileCard(item,index);
 
         }).join("");
 
 }
 
 
-/* OPEN */
+/* =====================================================
+   FOLDER CARD
+   ===================================================== */
 
-function openFile(index){
+function folderCard(item,index){
 
-    const url =
-        new URL(
-            files[index],
-            window.location.href
-        ).href;
+    return `
 
-    window.open(url,"_blank");
+        <div class="card">
+
+            <div class="top">
+
+                <div class="icon">
+                    📁
+                </div>
+
+                <div>
+
+                    <div class="name">
+                        ${escapeHtml(item.name)}
+                    </div>
+
+                    <div class="type">
+                        FOLDER
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="folderBtn"
+                onclick="openFolder(${index})"
+            >
+                📂 Open Folder
+            </button>
+
+        </div>
+
+    `;
 
 }
 
 
-/* COPY */
+/* =====================================================
+   FILE CARD
+   ===================================================== */
 
-async function copyLink(index){
+function fileCard(item,index){
 
-    const url =
-        new URL(
-            files[index],
-            window.location.href
-        ).href;
+    const rawUrl =
+        "https://raw.githubusercontent.com/" +
+        GITHUB_USER +
+        "/" +
+        GITHUB_REPO +
+        "/" +
+        GITHUB_BRANCH +
+        "/" +
+        item.path;
 
-    await navigator.clipboard.writeText(url);
 
-    toast("✅ Link copied");
+    const githubUrl =
+        "https://github.com/" +
+        GITHUB_USER +
+        "/" +
+        GITHUB_REPO +
+        "/blob/" +
+        GITHUB_BRANCH +
+        "/" +
+        item.path;
+
+
+    const extension =
+        item.name.includes(".")
+        ? item.name.split(".").pop().toUpperCase()
+        : "FILE";
+
+
+    return `
+
+        <div
+            class="card file-card"
+            data-search="${escapeHtml(
+                item.name.toLowerCase()
+            )}"
+        >
+
+            <div class="top">
+
+                <div class="icon">
+                    ${getIcon(item.name)}
+                </div>
+
+                <div>
+
+                    <div class="name">
+                        ${escapeHtml(item.name)}
+                    </div>
+
+                    <div class="type">
+                        ${extension}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="link">
+                ${escapeHtml(rawUrl)}
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    class="btn open"
+                    onclick="openUrl('${escapeAttr(rawUrl)}')"
+                >
+                    ↗ Open
+                </button>
+
+                <button
+                    class="btn copy"
+                    onclick="copyText('${escapeAttr(rawUrl)}')"
+                >
+                    📋 Copy
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
 
 }
 
 
-/* COPY ALL */
+/* =====================================================
+   OPEN FOLDER
+   ===================================================== */
 
-async function copyAll(){
+function openFolder(index){
 
-    if(files.length === 0){
+    const folders =
+        [...allItems]
+        .filter(item => item.type === "dir");
 
-        toast("No files");
+    const folder =
+        folders[index];
+
+    if(!folder) return;
+
+    currentPath =
+        folder.path;
+
+    document.getElementById("search").value =
+        "";
+
+    loadFiles();
+
+    document.getElementById("backBtn").style.display =
+        currentPath
+        ? "block"
+        : "none";
+
+}
+
+
+/* =====================================================
+   BACK
+   ===================================================== */
+
+function goBack(){
+
+    if(!currentPath){
 
         return;
+
     }
 
 
-    const links =
-        files.map(file =>
-            new URL(
-                file,
-                window.location.href
-            ).href
-        ).join("\n");
+    const parts =
+        currentPath
+        .split("/")
+        .filter(Boolean);
 
 
-    await navigator.clipboard.writeText(links);
+    /*
+       Do not go above ROOT_FOLDER
+    */
 
-    toast(
-        "✅ All links copied"
-    );
+    const rootParts =
+        ROOT_FOLDER
+        .split("/")
+        .filter(Boolean);
+
+
+    if(parts.length <= rootParts.length){
+
+        currentPath =
+            ROOT_FOLDER;
+
+    }else{
+
+        parts.pop();
+
+        currentPath =
+            parts.join("/");
+
+    }
+
+
+    document.getElementById("search").value =
+        "";
+
+    loadFiles();
+
+
+    document.getElementById("backBtn").style.display =
+        currentPath
+        ? "block"
+        : "none";
 
 }
 
 
-/* SEARCH */
+/* =====================================================
+   SEARCH
+   ===================================================== */
 
-function filterFiles(){
+function searchFiles(){
 
-    const query =
+    const q =
         document
         .getElementById("search")
         .value
@@ -775,53 +1060,175 @@ function filterFiles(){
         .trim();
 
 
-    document
-    .querySelectorAll(".file-card")
-    .forEach(card=>{
+    if(!q){
 
-        card.style.display =
-            card.dataset.name
-            .includes(query)
-            ? ""
-            : "none";
+        renderFiles(allItems);
 
-    });
+        return;
+
+    }
+
+
+    const filtered =
+        allItems.filter(item =>
+            item.name
+            .toLowerCase()
+            .includes(q)
+        );
+
+
+    renderFiles(filtered);
 
 }
 
 
-/* TOAST */
+/* =====================================================
+   COPY SINGLE
+   ===================================================== */
+
+async function copyText(text){
+
+    try{
+
+        await navigator.clipboard.writeText(text);
+
+        toast("✅ Link copied");
+
+    }catch(e){
+
+        fallbackCopy(text);
+
+    }
+
+}
+
+
+/* =====================================================
+   COPY ALL
+   ===================================================== */
+
+async function copyAllLinks(){
+
+    const files =
+        allItems.filter(
+            item => item.type === "file"
+        );
+
+
+    if(files.length === 0){
+
+        toast("No files");
+
+        return;
+
+    }
+
+
+    const links =
+        files.map(item =>
+
+            "https://raw.githubusercontent.com/" +
+            GITHUB_USER +
+            "/" +
+            GITHUB_REPO +
+            "/" +
+            GITHUB_BRANCH +
+            "/" +
+            item.path
+
+        ).join("\n");
+
+
+    await copyText(links);
+
+}
+
+
+/* =====================================================
+   OPEN
+   ===================================================== */
+
+function openUrl(url){
+
+    window.open(
+        url,
+        "_blank",
+        "noopener"
+    );
+
+}
+
+
+/* =====================================================
+   ICON
+   ===================================================== */
+
+function getIcon(name){
+
+    const ext =
+        name
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+
+    if(ext === "json") return "📋";
+
+    if(ext === "m3u" ||
+       ext === "m3u8") return "📺";
+
+    if(ext === "txt") return "📄";
+
+    if(ext === "html" ||
+       ext === "htm") return "🌐";
+
+    if(ext === "php") return "🐘";
+
+    if(ext === "js") return "⚙️";
+
+    if(ext === "css") return "🎨";
+
+    if(
+        ext === "jpg" ||
+        ext === "jpeg" ||
+        ext === "png" ||
+        ext === "webp" ||
+        ext === "gif"
+    ) return "🖼️";
+
+    if(
+        ext === "mp4" ||
+        ext === "mkv" ||
+        ext === "avi"
+    ) return "🎬";
+
+    return "📄";
+
+}
+
+
+/* =====================================================
+   TOAST
+   ===================================================== */
 
 function toast(message){
 
     const t =
         document.getElementById("toast");
 
-    t.textContent = message;
+    t.textContent =
+        message;
 
     t.classList.add("show");
 
+
     setTimeout(()=>{
+
         t.classList.remove("show");
+
     },1800);
 
 }
 
 
-/* HTML ESCAPE */
-
-function escapeHtml(text){
-
-    const div =
-        document.createElement("div");
-
-    div.textContent = text;
-
-    return div.innerHTML;
-
-}
-
-</script>
-
-</body>
-</html>
+/* ===========================
