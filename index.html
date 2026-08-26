@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>All Playlist File Manager</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:#fff;
+    background:
+        radial-gradient(circle at 10% 0%,#263d78,transparent 35%),
+        radial-gradient(circle at 90% 100%,#40205c,transparent 35%),
+        #070a12;
+}
+
+/* ================= LOGIN ================= */
+
+#loginPage{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.loginBox{
+    width:100%;
+    max-width:390px;
+    padding:35px 28px;
+    text-align:center;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:25px;
+    background:rgba(255,255,255,.07);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    box-shadow:0 30px 90px rgba(0,0,0,.55);
+}
+
+.logo{
+    width:75px;
+    height:75px;
+    margin:0 auto 18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:22px;
+    font-size:34px;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+.loginBox h1{
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.loginBox p{
+    color:#929bb0;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+.password{
+    width:100%;
+    height:52px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:13px;
+    outline:none;
+    background:rgba(0,0,0,.3);
+    color:#fff;
+    text-align:center;
+    font-size:22px;
+    letter-spacing:7px;
+}
+
+.password:focus{
+    border-color:#667eea;
+    box-shadow:0 0 0 3px rgba(102,126,234,.12);
+}
+
+.loginBtn{
+    width:100%;
+    height:52px;
+    margin-top:15px;
+    border:0;
+    border-radius:13px;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.loginBtn:active{
+    transform:scale(.98);
+}
+
+.error{
+    display:none;
+    margin-top:14px;
+    color:#ff7187;
+    font-size:13px;
+}
+
+
+/* ================= APP ================= */
+
+#app{
+    display:none;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(5,8,15,.85);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.headerInner{
+    max-width:1100px;
+    margin:auto;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brandIcon{
+    width:44px;
+    height:44px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+.brand h2{
+    font-size:18px;
+}
+
+.brand small{
+    display:block;
+    margin-top:3px;
+    color:#8993a8;
+    font-size:11px;
+}
+
+.logout{
+    padding:10px 14px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    cursor:pointer;
+}
+
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:22px 20px 50px;
+}
+
+.toolbar{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.search{
+    flex:1;
+    height:48px;
+    min-width:0;
+    padding:12px 15px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:13px;
+    outline:none;
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    font-size:14px;
+}
+
+.search:focus{
+    border-color:#667eea;
+}
+
+.copyAll{
+    padding:0 17px;
+    border:0;
+    border-radius:13px;
+    background:linear-gradient(135deg,#11998e,#38ef7d);
+    color:#04110c;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.path{
+    margin-bottom:15px;
+    padding:13px 15px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:13px;
+    background:rgba(255,255,255,.04);
+    color:#9ca6ba;
+    font-size:13px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.path span{
+    color:#fff;
+}
+
+.backBtn{
+    display:none;
+    margin-bottom:15px;
+    padding:10px 15px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    cursor:pointer;
+}
+
+.files{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+    gap:15px;
+}
+
+.card{
+    padding:17px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    background:rgba(255,255,255,.045);
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(102,126,234,.5);
+}
+
+.top{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.icon{
+    width:48px;
+    height:48px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    background:rgba(102,126,234,.15);
+    font-size:22px;
+}
+
+.name{
+    font-size:14px;
+    font-weight:bold;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.type{
+    margin-top:4px;
+    color:#8993a8;
+    font-size:11px;
+}
+
+.link{
+    margin-top:14px;
+    padding:10px;
+    border-radius:10px;
+    background:rgba(0,0,0,.22);
+    color:#8f99ae;
+    font-size:10px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.buttons{
+    display:flex;
+    gap:8px;
+    margin-top:11px;
+}
+
+.btn{
+    flex:1;
+    padding:10px;
+    border:0;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.open{
+    background:rgba(102,126,234,.18);
+    color:#aab8ff;
+}
+
+.copy{
+    background:rgba(56,239,125,.12);
+    color:#55ed95;
+}
+
+.folder{
+    width:100%;
+    margin-top:12px;
+    padding:11px;
+    border:0;
+    border-radius:10px;
+    background:rgba(255,193,7,.12);
+    color:#ffd45d;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.status{
+    grid-column:1/-1;
+    padding:60px 20px;
+    text-align:center;
+    color:#8d97ab;
+}
+
+footer{
+    padding:20px;
+    text-align:center;
+    color:#596276;
+    font-size:11px;
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    z-index:100;
+    padding:12px 18px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:12px;
+    background:#181d2b;
+    opacity:0;
+    transform:translate(-50%,20px);
+    transition:.25s;
+    pointer-events:none;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+@media(max-width:600px){
+
+    .container{
+        padding:18px 13px 40px;
+    }
+
+    .toolbar{
+        flex-direction:column;
+    }
+
+    .copyAll{
+        height:46px;
+    }
+
+    .files{
+        grid-template-columns:1fr;
+    }
+
+    .headerInner{
+        padding:13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<div id="loginPage">
+
+    <div class="loginBox">
+
+        <div class="logo">🔐</div>
+
+        <h1>All Playlist</h1>
+
+        <p>Enter password to access files</p>
+
+        <input
+            id="password"
+            class="password"
+            type="password"
+            inputmode="numeric"
+            maxlength="4"
+            placeholder="••••"
+            autocomplete="off"
+        >
+
+        <button
+            id="loginBtn"
+            class="loginBtn"
+            type="button"
+        >
+            🔓 LOGIN
+        </button>
+
+        <div id="error" class="error">
+            ❌ Incorrect password
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= APP ================= -->
+
+<div id="app">
+
+<header>
+
+    <div class="headerInner">
+
+        <div class="brand">
+
+            <div class="brandIcon">
+                📁
+            </div>
+
+            <div>
+                <h2>All Playlist</h2>
+                <small>GitHub File Manager</small>
+            </div>
+
+        </div>
+
+        <button
+            id="logoutBtn"
+            class="logout"
+            type="button"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+    <div class="toolbar">
+
+        <input
+            id="search"
+            class="search"
+            type="search"
+            placeholder="🔎 Search files..."
+        >
+
+        <button
+            id="copyAllBtn"
+            class="copyAll"
+            type="button"
+        >
+            📋 Copy All
+        </button>
+
+    </div>
+
+
+    <div class="path">
+        📍 Path:
+        <span id="currentPath">/</span>
+    </div>
+
+
+    <button
+        id="backBtn"
+        class="backBtn"
+        type="button"
+    >
+        ← Back
+    </button>
+
+
+    <div id="files" class="files">
+
+        <div class="status">
+            ⏳ Loading GitHub files...
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    All Playlist • GitHub File Manager
+</footer>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* =====================================================
+   CONFIGURATION
+===================================================== */
+
+const GITHUB_USER = "0ashalive";
+
+const GITHUB_REPO = "allplaylist";
+
+const GITHUB_BRANCH = "main";
+
+/*
+   Empty = GitHub repository root.
+
+   Example:
+   const ROOT_FOLDER = "upload";
+*/
+const ROOT_FOLDER = "";
+
+
+/*
+   Login password
+*/
+const PASSWORD = "2580";
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let currentPath = ROOT_FOLDER;
+
+let allItems = [];
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const loginPage =
+    document.getElementById("loginPage");
+
+const app =
+    document.getElementById("app");
+
+const passwordInput =
+    document.getElementById("password");
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+const errorBox =
+    document.getElementById("error");
+
+const filesBox =
+    document.getElementById("files");
+
+const searchBox =
+    document.getElementById("search");
+
+const currentPathBox =
+    document.getElementById("currentPath");
+
+const backBtn =
+    document.getElementById("backBtn");
+
+const toastBox =
+    document.getElementById("toast");
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function login(){
+
+    const value =
+        passwordInput.value.trim();
+
+    errorBox.style.display = "none";
+
+
+    if(value === PASSWORD){
+
+        sessionStorage.setItem(
+            "allplaylist_logged",
+            "1"
+        );
+
+        showApp();
+
+    }else{
+
+        errorBox.style.display = "block";
+
+        passwordInput.value = "";
+
+        passwordInput.focus();
+
+    }
+
+}
+
+
+loginBtn.addEventListener(
+    "click",
+    login
+);
+
+
+passwordInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+            login();
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SHOW APP
+===================================================== */
+
+function showApp(){
+
+    loginPage.style.display = "none";
+
+    app.style.display = "block";
+
+    loadFiles();
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+document
+.getElementById("logoutBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        sessionStorage.removeItem(
+            "allplaylist_logged"
+        );
+
+        location.reload();
+
+    }
+);
+
+
+/* =====================================================
+   AUTO LOGIN
+===================================================== */
+
+if(
+    sessionStorage.getItem(
+        "allplaylist_logged"
+    ) === "1"
+){
+
+    showApp();
+
+}
+
+
+/* =====================================================
+   GITHUB API
+===================================================== */
+
+async function loadFiles(){
+
+    filesBox.innerHTML = `
+        <div class="status">
+            ⏳ Loading GitHub files...
+        </div>
+    `;
+
+
+    currentPathBox.textContent =
+        "/" + currentPath;
+
+
+    let apiURL =
+        "https://api.github.com/repos/" +
+        encodeURIComponent(GITHUB_USER) +
+        "/" +
+        encodeURIComponent(GITHUB_REPO) +
+        "/contents";
+
+
+    if(currentPath){
+
+        const encodedPath =
+            currentPath
+            .split("/")
+            .filter(Boolean)
+            .map(function(part){
+
+                return encodeURIComponent(part);
+
+            })
+            .join("/");
+
+        apiURL += "/" + encodedPath;
+
+    }
+
+
+    apiURL +=
+        "?ref=" +
+        encodeURIComponent(GITHUB_BRANCH);
+
+
+    try{
+
+        const response =
+            await fetch(apiURL,{
+                method:"GET",
+                headers:{
+                    "Accept":
+                    "application/vnd.github+json"
+                }
+            });
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "GitHub API HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(!Array.isArray(data)){
+
+            throw new Error(
+                "Invalid GitHub API response"
+            );
+
+        }
+
+
+        allItems = data;
+
+        renderFiles(allItems);
+
+
+        backBtn.style.display =
+            currentPath
+            ? "block"
+            : "none";
+
+
+    }catch(error){
+
+        console.error(error);
+
+        filesBox.innerHTML = `
+            <div class="status">
+
+                ❌ Unable to load GitHub files
+
+                <br><br>
+
+                <small>
+                    ${escapeHTML(error.message)}
+                </small>
+
+                <br><br>
+
+                Repository:
+                <b>${GITHUB_USER}/${GITHUB_REPO}</b>
+
+                <br>
+
+                Branch:
+                <b>${GITHUB_BRANCH}</b>
+
+                <br><br>
+
+                Make sure the repository is
+                PUBLIC.
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER FILES
+===================================================== */
+
+function renderFiles(items){
+
+    if(!items.length){
+
+        filesBox.innerHTML = `
+            <div class="status">
+                📂 No files found
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const sorted =
+        [...items].sort(
+            function(a,b){
+
+                if(a.type !== b.type){
+
+                    return a.type === "dir"
+                        ? -1
+                        : 1;
+
+                }
+
+                return a.name.localeCompare(
+                    b.name
+                );
+
+            }
+        );
+
+
+    filesBox.innerHTML = "";
+
+
+    sorted.forEach(
+        function(item){
+
+            if(item.type === "dir"){
+
+                filesBox.appendChild(
+                    createFolderCard(item)
+                );
+
+            }else{
+
+                filesBox.appendChild(
+                    createFileCard(item)
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FOLDER CARD
+===================================================== */
+
+function createFolderCard(item){
+
+    const card =
+        document.createElement("div");
+
+    card.className = "card";
+
+
+    card.innerHTML = `
+
+        <div class="top">
+
+            <div class="icon">
+                📁
+            </div>
+
+            <div>
+
+                <div class="name"></div>
+
+                <div class="type">
+                    FOLDER
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="folder">
+            📂 Open Folder
+        </button>
+
+    `;
+
+
+    card.querySelector(".name")
+        .textContent = item.name;
+
+
+    card.querySelector(".folder")
+        .addEventListener(
+            "click",
+            function(){
+
+                currentPath =
+                    item.path;
+
+                searchBox.value = "";
+
+                loadFiles();
+
+            }
+        );
+
+
+    return card;
+
+}
+
+
+/* =====================================================
+   FILE CARD
+===================================================== */
+
+function createFileCard(item){
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "card file-card";
+
+
+    /*
+       Raw GitHub URL
+    */
+
+    const rawURL =
+        "https://raw.githubusercontent.com/" +
+        GITHUB_USER +
+        "/" +
+        GITHUB_REPO +
+        "/" +
+        GITHUB_BRANCH +
+        "/" +
+        item.path;
+
+
+    const extension =
+        item.name.includes(".")
+        ? item.name
+            .split(".")
+            .pop()
+            .toUpperCase()
+        : "FILE";
+
+
+    card.innerHTML = `
+
+        <div class="top">
+
+            <div class="icon">
+                ${getIcon(item.name)}
+            </div>
+
+            <div>
+
+                <div class="name"></div>
+
+                <div class="type">
+                    ${extension}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="link"></div>
+
+
+        <div class="buttons">
+
+            <button class="btn open">
+                ↗ Open
+            </button>
+
+            <button class="btn copy">
+                📋 Copy
+            </button>
+
+        </div>
+
+    `;
+
+
+    card.querySelector(".name")
+        .textContent =
+        item.name;
+
+
+    card.querySelector(".link")
+        .textContent =
+        rawURL;
+
+
+    /*
+       OPEN
+    */
+
+    card.querySelector(".open")
+        .addEventListener(
+            "click",
+            function(){
+
+                window.open(
+                    rawURL,
+                    "_blank",
+                    "noopener"
+                );
+
+            }
+        );
+
+
+    /*
+       COPY
+    */
+
+    card.querySelector(".copy")
+        .addEventListener(
+            "click",
+            function(){
+
+                copyToClipboard(
+                    rawURL
+                );
+
+            }
+        );
+
+
+    return card;
+
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+backBtn.addEventListener(
+    "click",
+    function(){
+
+        if(!currentPath){
+            return;
+        }
+
+
+        const rootParts =
+            ROOT_FOLDER
+            .split("/")
+            .filter(Boolean);
+
+
+        let parts =
+            currentPath
+            .split("/")
+            .filter(Boolean);
+
+
+        if(
+            parts.length <=
+            rootParts.length
+        ){
+
+            currentPath =
+                ROOT_FOLDER;
+
+        }else{
+
+            parts.pop();
+
+            currentPath =
+                parts.join("/");
+
+        }
+
+
+        searchBox.value = "";
+
+        loadFiles();
+
+    }
+);
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchBox.addEventListener(
+    "input",
+    function(){
+
+        const query =
+            this.value
+            .trim()
+            .toLowerCase();
+
+
+        if(!query){
+
+            renderFiles(allItems);
+
+            return;
+
+        }
+
+
+        const filtered =
+            allItems.filter(
+                function(item){
+
+                    return item.name
+                        .toLowerCase()
+                        .includes(query);
+
+                }
+            );
+
+
+        renderFiles(filtered);
+
+    }
+);
+
+
+/* =====================================================
+   COPY ALL LINKS
+===================================================== */
+
+document
+.getElementById("copyAllBtn")
+.addEventListener(
+    "click",
+    async function(){
+
+        const fileItems =
+            allItems.filter(
+                function(item){
+
+                    return item.type === "file";
+
+                }
+            );
+
+
+        if(!fileItems.length){
+
+            showToast(
+                "❌ No files"
+            );
+
+            return;
+
+        }
+
+
+        /*
+           No 1242 character/word limit.
+           Complete links are copied.
+        */
+
+        const links =
+            fileItems
+            .map(
+                function(item){
+
+                    return (
+                        "https://raw.githubusercontent.com/" +
+                        GITHUB_USER +
+                        "/" +
+                        GITHUB_REPO +
+                        "/" +
+                        GITHUB_BRANCH +
+                        "/" +
+                        item.path
+                    );
+
+                }
+            )
+            .join("\n");
+
+
+        await copyToClipboard(
+            links
+        );
+
+    }
+);
+
+
+/* =====================================================
+   COPY TO CLIPBOARD
+===================================================== */
+
+async function copyToClipboard(text){
+
+    /*
+       Method 1:
+       Modern Clipboard API
+    */
+
+    if(
+        navigator.clipboard &&
+        window.isSecureContext
+    ){
+
+        try{
+
+            await navigator.clipboard
+                .writeText(text);
+
+            showToast(
+                "✅ Copied successfully"
+            );
+
+            return;
+
+        }catch(error){
+
+            console.log(
+                "Clipboard API failed",
+                error
+            );
+
+        }
+
+    }
+
+
+    /*
+       Method 2:
+       Android / Browser fallback
+    */
+
+    const textarea =
+        document.createElement(
+            "textarea"
+        );
+
+
+    textarea.value = text;
+
+    textarea.setAttribute(
+        "readonly",
+        ""
+    );
+
+    textarea.style.position =
+        "fixed";
+
+    textarea.style.left =
+        "-99999px";
+
+    textarea.style.top =
+        "0";
+
+    textarea.style.width =
+        "1px";
+
+    textarea.style.height =
+        "1px";
+
+    textarea.style.opacity =
+        "0";
+
+
+    document.body.appendChild(
+        textarea
+    );
+
+
+    textarea.focus();
+
+    textarea.select();
+
+    textarea.setSelectionRange(
+        0,
+        textarea.value.length
+    );
+
+
+    let success = false;
+
+
+    try{
+
+        success =
+            document.execCommand(
+                "copy"
+            );
+
+    }catch(error){
+
+        success = false;
+
+    }
+
+
+    textarea.remove();
+
+
+    if(success){
+
+        showToast(
+            "✅ Copied successfully"
+        );
+
+    }else{
+
+        /*
+           Last fallback:
+           show text so user can manually copy.
+        */
+
+        showCopyDialog(text);
+
+    }
+
+}
+
+
+/* =====================================================
+   LAST COPY FALLBACK
+===================================================== */
+
+function showCopyDialog(text){
+
+    const old =
+        document.getElementById(
+            "copyDialog"
+        );
+
+    if(old){
+        old.remove();
+    }
+
+
+    const dialog =
+        document.createElement(
+            "div"
+        );
+
+
+    dialog.id =
+        "copyDialog";
+
+
+    dialog.style.position =
+        "fixed";
+
+    dialog.style.left =
+        "10px";
+
+    dialog.style.right =
+        "10px";
+
+    dialog.style.top =
+        "50%";
+
+    dialog.style.transform =
+        "translateY(-50%)";
+
+    dialog.style.zIndex =
+        "9999";
+
+    dialog.style.padding =
+        "18px";
+
+    dialog.style.borderRadius =
+        "16px";
+
+    dialog.style.background =
+        "#151a28";
+
+    dialog.style.border =
+        "1px solid rgba(255,255,255,.15)";
+
+
+    dialog.innerHTML = `
+        <div style="
+            font-weight:bold;
+            margin-bottom:10px;
+        ">
+            📋 Copy Text
+        </div>
+
+        <textarea
+            id="manualCopyText"
+            style="
+                width:100%;
+                height:220px;
+                resize:vertical;
+                padding:10px;
+                border-radius:10px;
+                border:1px solid #333;
+                background:#080b12;
+                color:white;
+                outline:none;
+            "
+        ></textarea>
+
+        <div style="
+            display:flex;
+            gap:8px;
+            margin-top:10px;
+        ">
+
+            <button
+                id="manualCopyBtn"
+                style="
+                    flex:1;
+                    padding:11px;
+                    border:0;
+                    border-radius:10px;
+                    background:#38ef7d;
+                    font-weight:bold;
+                "
+            >
+                Copy
+            </button>
+
+            <button
+                id="closeCopyBtn"
+                style="
+                    flex:1;
+                    padding:11px;
+                    border:0;
+                    border-radius:10px;
+                    background:#333a4d;
+                    color:white;
+                "
+            >
+                Close
+            </button>
+
+        </div>
+    `;
+
+
+    document.body.appendChild(
+        dialog
+    );
+
+
+    const textarea =
+        document.getElementById(
+            "manualCopyText"
+        );
+
+
+    textarea.value =
+        text;
+
+
+    textarea.focus();
+
+    textarea.select();
+
+
+    document
+    .getElementById(
+        "manualCopyBtn"
+    )
+    .addEventListener(
+        "click",
+        async function(){
+
+            textarea.focus();
+
+            textarea.select();
+
+            try{
+
+                await navigator.clipboard.writeText(
+                    textarea.value
+                );
+
+                showToast(
+                    "✅ Copied"
+                );
+
+            }catch(e){
+
+                document.execCommand(
+                    "copy"
+                );
+
+                showToast(
+                    "✅ Copied"
+                );
+
+            }
+
+        }
+    );
+
+
+    document
+    .getElementById(
+        "closeCopyBtn"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            dialog.remove();
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FILE ICON
+===================================================== */
+
+function getIcon(name){
+
+    const ext =
+        name
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+
+    if(ext === "json")
+        return "📋";
+
+    if(
+        ext === "m3u" ||
+        ext === "m3u8"
+    )
+        return "📺";
+
+    if(ext === "txt")
+        return "📄";
+
+    if(
+        ext === "html" ||
+        ext === "htm"
+    )
+        return "🌐";
+
+    if(ext === "js")
+        return "⚙️";
+
+    if(ext === "css")
+        return "🎨";
+
+    if(ext === "php")
+        return "🐘";
+
+    if(
+        ["jpg","jpeg","png","webp","gif"]
+        .includes(ext)
+    )
+        return "🖼️";
+
+    if(
+        ["mp4","mkv","avi","mov"]
+        .includes(ext)
+    )
+        return "🎬";
+
+    return "📄";
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+    toastBox.textContent =
+        message;
+
+    toastBox.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function(){
+
+            toastBox.classList.remove(
+                "show"
+            );
+
+        },
+        1800
+    );
+
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHTML(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+</script>
+
+</body>
+</html>
