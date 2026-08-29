@@ -15,3 +15,13 @@ https://da86m1sqpm3o0.cloudfront.net/28072023/smil:colorsme.smil/playlist.m3u8
 https://maamusic.keralive.workers.dev/out/v1/a526e652e4644463bca88e350785bed0/index.m3u8|referer=https://bhoomtv.org/ 
 #EXTINF:-1 tvg-id="" tvg-logo="https://s3-ap-southeast-1.amazonaws.com/ams-astro/production/resizedImages/ColorsHindi2025_IVP_LAND_917x516.jpg",Colors
 https://yupp-us-vt.keralive.workers.dev/090823/smil:colorsaapkadev.smil/playlist.m3u8|referer=https://bhoomtv.org/
+#EXTINF:-1 tvg-name="Bhojpuri Cinema"tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ44_RsUWIg7rfT4MMOXtP8QS9dTDYYZH9iM0SRJILaqg&s=10",Bhojpuri Cinema
+https://live-bhojpuri.akamaized.net/liveabr/playlist.m3u8
+#EXTINF:-1 tvg-name="Shemaroo Bollywood" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnqcjPoamH4rryKDZazc2T3yjzaT01O_kzBAe-s2xqmA&s=10",Shemaroo Bollywood
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00864-shemarooenterta-shemabollywood-ono/playlist.m3u8
+#EXTINF:-1 tvg-name="Action Bollywood Movies"tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfXCTw8pZkPEarBP7O8VCm_6uFuQk507wAd-fMVaSlFg&s",Action Bollywood Movies
+https://amg01076-lightningintern-actionhollywood-samsungnz-82rry.amagi.tv/playlist/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8
+#EXTINF:-1 tvg-name="South Movies" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlWqNzqLL28rwkMd_6gcF43U_POEFMh_T3JNP1xLnIEw&s=10",South Movies
+https://live20.bozztv.com/giatvplayout7/giatv-209593/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 tvg-name="Hindi Movies" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNm-t-8Rx6ySLd2_3PU_fTWCkrvgJkRGOiidN8QutDaQ&s=10",Hindi Movies
+https://live20.bozztv.com/giatvplayout7/giatv-209612/tracks-v1a1/mono.ts.m3u8
