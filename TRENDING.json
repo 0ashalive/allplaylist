@@ -1,12 +1,12 @@
 {
     "hero": [
         {
-            "id": "Toxic: A Fairy Tale For Grown-Ups",
-            "title": "Toxic: A Fairy Tale For Grown-Ups",
-            "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzXRyFpsHrG6T_s3T-dOIkjPZNk7F9sv7fHD_b0m4MRA&s",
-            "stream_url": "https://pub-4e135af7e68844d8816cb0f642379557.r2.dev/CINEFREAK.TOP%20-%20Toxic%20%282026%29%20HDTC%20%5BHindi%20LiNE%5D%20720p%20HC-ESub.mkv",
+            "id": "Raakh (2026) Season 1",
+            "title": "Raakh (2026) Season 1",
+            "poster": "https://m.media-amazon.com/images/M/MV5BZjhkMTFkM2ItNTgxOC00YjI5LTllYjUtYzc2YTBjYWM5YTdiXkEyXkFqcGc@._V1_FMjpg_UY600_.jpg",
+            "stream_url": "https://prmovies.hasanhabibmottakin.workers.dev/0wd117ariupa/index.m3u8",
             "headers": {
-                "Referer": ""
+                "Referer": "https://speedostream1.com/"
             }
         }
     ],
@@ -14,15 +14,6 @@
         {
             "name": "Trending",
             "items": [
-                {
-            "id": "Toxic: A Fairy Tale For Grown-Ups",
-            "title": "Toxic: A Fairy Tale For Grown-Ups",
-            "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzXRyFpsHrG6T_s3T-dOIkjPZNk7F9sv7fHD_b0m4MRA&s",
-            "stream_url": "https://pub-4e135af7e68844d8816cb0f642379557.r2.dev/CINEFREAK.TOP%20-%20Toxic%20%282026%29%20HDTC%20%5BHindi%20LiNE%5D%20720p%20HC-ESub.mkv",
-            "headers": {
-                "Referer": ""
-            }
-                },
                 {
                     "id": "Raakh (2026) Season 1",
                     "title": "Raakh (2026) Season 1",
