@@ -1,0 +1,50 @@
+[
+    {
+        "title": "Obsession",
+        "landscapeitem": "yes",
+        "sid": "0M1G8W35R6LZYZ25OYBKKX3PBF",
+        "poster": "https://imgcdn.kim/pv/h/0M1G8W35R6LZYZ25OYBKKX3PBF.jpg",
+        "tags": "Horror, Romance, Suspense",
+        "bg_color": "#E10816",
+        "platform_logo": "https://i.postimg.cc/yxkVNNBn/images-removebg-preview.png",
+        "badge_text": "Included with Prime",
+        "badge_color": "#00A8E1",
+        "badge_bg_color": "#E6000000"
+    },
+    {
+        "title": "Mortal Kombat II",
+        "landscapeitem": "yes",
+        "sid": "0TRN33PA5D1926VYMGEXIRTM7E",
+        "poster": "https://imgcdn.kim/pv/h/0TRN33PA5D1926VYMGEXIRTM7E.jpg",
+        "tags": "Action, Adventure, Science Fiction, Fantasy",
+        "bg_color": "#E10816",
+        "platform_logo": "https://i.postimg.cc/yxkVNNBn/images-removebg-preview.png",
+        "badge_text": "Included with Prime",
+        "badge_color": "#00A8E1",
+        "badge_bg_color": "#E6000000"
+    },
+    {
+        "title": "Gram Chikitsalay",
+        "landscapeitem": "yes",
+        "sid": "0O0Y3RM5NIGN9SMVL6098UHNBR",
+        "poster": "https://imgcdn.kim/pv/h/0O0Y3RM5NIGN9SMVL6098UHNBR.jpg",
+        "tags": "Comedy, Drama",
+        "bg_color": "#E10816",
+        "platform_logo": "https://i.postimg.cc/yxkVNNBn/images-removebg-preview.png",
+        "badge_text": "Included with Prime",
+        "badge_color": "#00A8E1",
+        "badge_bg_color": "#E6000000"
+    },
+    {
+        "title": "The Super Mario Galaxy Movie",
+        "landscapeitem": "yes",
+        "sid": "0PBFG5N3HA86BJ9IED4VCLMBIO",
+        "poster": "https://imgcdn.kim/pv/h/0PBFG5N3HA86BJ9IED4VCLMBIO.jpg",
+        "tags": "Animation, Adult Interest, Adventure, Comedy, Fantasy",
+        "bg_color": "#E10816",
+        "platform_logo": "https://i.postimg.cc/yxkVNNBn/images-removebg-preview.png",
+        "badge_text": "Included with Prime",
+        "badge_color": "#00A8E1",
+        "badge_bg_color": "#E6000000"
+    }
+]
